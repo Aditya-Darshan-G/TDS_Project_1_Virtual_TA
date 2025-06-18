@@ -1,0 +1,12 @@
+fastapi
+uvicorn
+aiohttp
+numpy
+tqdm
+requests
+python-dotenv
+pydantic
+google-generativeai
+beautifulsoup4
+markdown
+playwright
