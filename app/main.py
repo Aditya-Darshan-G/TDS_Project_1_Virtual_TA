@@ -175,9 +175,6 @@ def extract_answer_and_links(text):
 
     return {"answer": answer, "links": links}
 
-
-    return {"answer": answer, "links": links}
-
 # API routes
 @app.post("/query", response_model=QueryResponse)
 async def query(request: QueryRequest):
