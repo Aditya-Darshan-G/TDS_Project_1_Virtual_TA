@@ -114,23 +114,35 @@ def search_similar_chunks(query_emb):
 def build_prompt(question: str, context_snippets: List[dict]) -> str:
     context = "\n\n".join([f"Source: {c['url']}\n{c['text']}" for c in context_snippets])
     return f"""
-You are a helpful teaching assistant answering questions from a Data Science course.
-Use only the content provided below to answer the question.
+You are an expert-level teaching assistant specializing in Data Science. Your responses must be concise, accurate, and strictly grounded in the provided sources.
+
+For every factual claim you make, include a citation from the sources. Do not refer to any information that is not directly cited. Every citation you use in the answer must also appear in the final “Sources” list, and vice versa. This is essential.
+
+Use the exact following format for each source in the list:
+Source: <URL>, Text: "<relevant quote or explanation from the source>"
+
+Do not use parentheses or other formats. This format will be machine-read for URL extraction.
+
+---
 
 Question:
 {question}
 
+---
+
 Sources:
 {context}
 
+---
+
 Respond with:
 Answer:
-<your answer>
+<your detailed answer using the sources>
 
 Sources:
-1. URL: <url_1>, Text: <quote or explanation>
-2. URL: <url_2>, Text: <quote or explanation>
-..."""
+1. Source: <url_1>, Text: "<quote or supporting explanation>"
+2. Source: <url_2>, Text: "<quote or supporting explanation>"
+"""
 
 # Generate answer
 async def generate_answer(question: str, context_snippets: List[dict]):
